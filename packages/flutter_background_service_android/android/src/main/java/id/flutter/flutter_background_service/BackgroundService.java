@@ -102,27 +102,7 @@ public class BackgroundService extends Service implements MethodChannel.MethodCa
         onStartCommand(null, -1, -1);
     }
 
-    @Override
-    public void onDestroy() {
-        if (!isManuallyStopped) {
-            WatchdogReceiver.enqueue(this);
-        } else {
-            config.setManuallyStopped(true);
-        }
-        stopForeground(true);
-        isRunning.set(false);
-
-        if (backgroundEngine != null) {
-            backgroundEngine.getServiceControlSurface().detachFromService();
-            backgroundEngine.destroy();
-            backgroundEngine = null;
-        }
-
-        FlutterBackgroundServicePlugin.servicePipe.removeListener(listener);
-        methodChannel = null;
-        dartEntrypoint = null;
-        super.onDestroy();
-    }
+  
 
     private final Pipe.PipeListener listener = new Pipe.PipeListener() {
         @Override
