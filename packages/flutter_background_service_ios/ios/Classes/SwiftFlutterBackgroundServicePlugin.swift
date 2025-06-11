@@ -237,7 +237,6 @@ private class FlutterBackgroundRefreshAppWorker {
     
     public func cancel(){
         DispatchQueue.main.async {
-            self.engine.destroyContext()
         }
         
         self.task.setTaskCompleted(success: false)
@@ -250,7 +249,6 @@ private class FlutterBackgroundRefreshAppWorker {
             self.task.setTaskCompleted(success: result)
             
             DispatchQueue.main.async {
-                self.engine.destroyContext()
             }
             
             self.onCompleted?()
@@ -292,7 +290,6 @@ private class FlutterBackgroundFetchWorker {
     }
     
     public func cancel(){
-        self.engine.destroyContext()
         self.task(.failed)
         self.onCompleted?()
     }
@@ -307,7 +304,6 @@ private class FlutterBackgroundFetchWorker {
                 self.task(.noData)
             }
             
-            self.engine.destroyContext()
             self.onCompleted?()
             print("Flutter Background Service Completed")
         }
@@ -358,7 +354,6 @@ private class FlutterForegroundWorker {
         }
         
         if (call.method == "stopService") {
-            self.engine.destroyContext()
             result(true)
             self.onTerminated?()
             return;
