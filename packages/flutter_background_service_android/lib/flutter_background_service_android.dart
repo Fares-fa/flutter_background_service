@@ -186,7 +186,6 @@ class AndroidServiceInstance extends ServiceInstance {
 
   @override
   Future<void> stopSelf() async {
-    await _channel.invokeMethod("stopService");
   }
 
   @override
